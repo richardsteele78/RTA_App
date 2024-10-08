@@ -37,7 +37,7 @@ def load_dataset(mystart_year,myend_year):
     #READ RAW DATA
     fulldf = pd.DataFrame()
     for myyear in range(int(mystart_year),int(myend_year)+1):
-        myfilepath = r"data\dft-road-casualty-statistics-collision-" + str(myyear) + ".csv"
+        myfilepath = f"dft-road-casualty-statistics-collision-{myyear}.csv"
         importdataframe=pd.read_csv(myfilepath, low_memory=False)
         fulldf = pd.concat([fulldf,importdataframe])
     fulldf = fulldf.dropna(subset=['latitude', 'longitude'])
