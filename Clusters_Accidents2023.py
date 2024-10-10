@@ -61,10 +61,7 @@ def load_grey(mydf):
 @st.cache_data
 def load_red(mydf):
     UKMap = folium.Map(location=[53,-1.99], zoom_start=6)
-    # for index,entry in mydf.iterrows():
-    #     folium.CircleMarker((entry['latitude'], entry['longitude']),popup=f'Date:{entry['date']}  Number of casualties:{entry['number_of_casualties']}', radius=5, weight=2, color='grey', fill_color='grey', fill_opacity=.2).add_to(UKMap)
-    mysubsetdf = mydf.loc[mydf['Cluster']!=-1].copy()
-    for index,entry in mysubsetdf.iterrows():
+    for index,entry in mydf.iterrows():
         folium.CircleMarker((entry['latitude'], entry['longitude']),popup=f'Date:{entry['date']}  Number of casualties:{entry['number_of_casualties']}', radius=5, weight=2, color='red', fill_color='red', fill_opacity=.5).add_to(UKMap)
     folium_static(UKMap)
 
@@ -94,12 +91,15 @@ ind_displayDBSCAN = st.button('Calculate and display DBSCAN clusters')
 
 #Initialize map
 st.divider()
-st.header(f"Displaying {accident_count} accidents: {start_year}-{end_year}")
 UKMap = st.session_state['UKMap']
 if ind_displayDBSCAN:
     df_numeric = selecteddf[['longitude','latitude']].copy()
     myclusterdf = perform_clustering(df_numeric, myepsilon, no_samples, selecteddf)
-    load_red(myclusterdf)
+    mysubsetdf = myclusterdf.loc[myclusterdf['Cluster']!=-1].copy()
+    accident_count = len(mysubsetdf)
+    st.header(f"Displaying {accident_count} clustered accidents: {start_year}-{end_year}")
     st.write(f"{len(set(myclusterdf['Cluster']))-1} cluster(s) highlighted in red")
+    load_red(mysubsetdf)
 else:
+    st.header(f"Displaying {accident_count} accidents: {start_year}-{end_year}")
     load_grey(selecteddf)
