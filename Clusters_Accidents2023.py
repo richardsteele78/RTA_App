@@ -1,6 +1,5 @@
 #streamlit run C:\Github\RTA_App-1\Clusters_Accidents2023.py
 import streamlit as st
-from streamlit_folium import folium_static
 import pandas as pd
 from sklearn.cluster import DBSCAN
 from geopy.distance import great_circle
@@ -56,14 +55,14 @@ def load_grey(mydf):
     UKMap = folium.Map(location=[53,-1.99], zoom_start=6)
     for index,entry in mydf.iterrows():
         folium.CircleMarker((entry['latitude'], entry['longitude']),popup=f'Date:{entry['date']}  Number of casualties:{entry['number_of_casualties']}', radius=5, weight=2, color='grey', fill_color='grey', fill_opacity=.2).add_to(UKMap)
-    folium_static(UKMap)
+    folium(UKMap)
 
 @st.cache_data
 def load_red(mydf):
     UKMap = folium.Map(location=[53,-1.99], zoom_start=6)
     for index,entry in mydf.iterrows():
         folium.CircleMarker((entry['latitude'], entry['longitude']),popup=f'Date:{entry['date']}  Number of casualties:{entry['number_of_casualties']}', radius=5, weight=2, color='red', fill_color='red', fill_opacity=.5).add_to(UKMap)
-    folium_static(UKMap)
+    folium(UKMap)
 
 if 'UKMap' not in st.session_state:
     st.session_state['UKMap'] = folium.Map(location=[53,-1.99], zoom_start=6)
