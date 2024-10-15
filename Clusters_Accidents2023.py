@@ -9,8 +9,7 @@ import datetime as datetime
 import matplotlib.pyplot as plt
 
 st.header("UK Fatal Road Accident clustering tool")
-st.write("Data Source: https://www.data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data")
-st.write("Link to explanatory article: https://www.theactuary.com/2023/04/08/top-tool-data-clustering")
+st.markdown("Data Source: [www.data.gov.uk/road-safety-data](https://www.data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data)")
 
 if 'fullresponse' not in st.session_state:
     st.session_state['fulldataset'] = None
@@ -88,6 +87,8 @@ st.write(f"Loaded {accident_count} fatal accidents from {start_year} to {end_yea
 no_samples = st.number_input("Specify Number of Fatal accidents",min_value=2, max_value=10,step=1)
 myepsilon = st.number_input("Specify density distance (radius in metres) ",min_value=500, max_value=2000,step=500,value=500)
 ind_displayDBSCAN = st.button('Calculate and display DBSCAN clusters')
+st.markdown("Link to explanatory article: [www.theactuary.com/top-tool-data-clustering](https://www.theactuary.com/2023/04/08/top-tool-data-clustering)")
+st.markdown("Link to explanatory podcast (AI-generated): [Soundcloud.com/ai-generated-podcast-notebookdb-dbscan](https://soundcloud.com/richard-steele-752231039/ai-generated-podcast-notebookdb-dbscan?si=548a5166090746ffaefbf8932f7dd5d7&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing)")
 
 #Initialize map
 st.divider()
